@@ -51,15 +51,12 @@ const mongoose = require('mongoose');
 //   timestamps: true, 
 // });
 const userSchema = new mongoose.Schema({
-  firstName: {
+  username: {
     type: String,
     required: true,
     trim: true,
-  },
-  lastName: {
-    type: String,
-    required: true,
-    trim: true,
+    minlength: 3,
+    maxlength: 30,
   },
   email: {
     type: String,

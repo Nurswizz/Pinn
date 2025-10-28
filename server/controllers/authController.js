@@ -5,8 +5,7 @@ const { generateTokens, verifyToken } = require("../utils/token");
 const transformUser = (user) => {
   return {
     id: user._id,
-    firstName: user.firstName,
-    lastName: user.lastName,
+    username: user.username,
     email: user.email,
     // isEmailVerified: user.isEmailVerified,
     metadata: user.metadata,
@@ -14,15 +13,15 @@ const transformUser = (user) => {
 };
 const authController = {
   login: async (req, res) => {
-    const { email, password } = req.body;
-    if (!email || !password) {
+    const { username, password } = req.body;
+    if (!username || !password) {
       return res
         .status(400)
-        .json({ message: "Email and password are required" });
+        .json({ message: "Username and password are required", status: 400 });
     }
 
     try {
-      const user = await User.findOne({ email });
+      const user = await User.findOne({ username });
       if (!user) {
         return res.status(404).json({ message: "User not found", status: 404 });
       }
@@ -54,8 +53,8 @@ const authController = {
     }
   },
   register: async (req, res) => {
-    const { email, password, firstName, lastName } = req.body;
-    if (!email || !password || !firstName || !lastName) {
+    const { email, password, username } = req.body;
+    if (!email || !password || !username) {
       return res.status(400).json({ message: "All fields are required" });
     }
     const existingUser = await User.findOne({ email });
@@ -66,8 +65,7 @@ const authController = {
     }
     const hashedPassword = await hashPassword(password);
     const newUser = new User({
-      firstName,
-      lastName,
+      username,
       email,
       password: hashedPassword,
     });

@@ -9,6 +9,7 @@ import {
   BookOpen,
   Star,
 } from "lucide-react";
+import {useNavigate} from "react-router-dom";
 
 const Card = ({ title, description, icon: Icon, iconColor }) => {
   return (
@@ -21,6 +22,7 @@ const Card = ({ title, description, icon: Icon, iconColor }) => {
 };
 
 const LandingPage = () => {
+  const navigate = useNavigate();
   return (
     <div className="">
       <NavbarLandingPage />
@@ -42,7 +44,7 @@ const LandingPage = () => {
           </h3>
         </div>
         <div className="flex justify-center mt-8">
-          <button className="bg-gradient-to-r from-[#7F22FE] to-[#155DFC] text-white px-6 py-3 rounded-full font-semibold hover:from-[#155DFC] hover:to-[#7F22FE] transition-colors duration-300">
+          <button onClick={() => navigate("/dashboard")} className="bg-gradient-to-r from-[#7F22FE] to-[#155DFC] text-white px-6 py-3 rounded-full font-semibold hover:from-[#155DFC] hover:to-[#7F22FE] transition-colors duration-300">
             Get Started
           </button>
           <button className="bg-white text-[#7F22FE] border border-[#7F22FE] px-6 py-3 rounded-full font-semibold hover:bg-[#7F22FE] hover:text-white transition-colors duration-300 ml-4">
@@ -55,7 +57,7 @@ const LandingPage = () => {
             Features designed to keep you motivated and engaged
           </h3>
         </div>
-        <div className="flex flex-wrap justify-center gap-8 mt-12 px-4 max-w-5xl">
+        <div className="flex flex-wrap justify-center gap-8 mt-12 px-4 max-w-5xl" id="features">
           <Card
             title="Daily Streaks"
             description="Maintain a daily coding streak to build consistency and earn rewards."
@@ -100,12 +102,12 @@ const LandingPage = () => {
             <Star className="h-12 w-12 mb-4" color="#FFD700" />
           </div>
           <h2 className="text-3xl font-bold text-white">
-            Ready to Start Your Quest?{" "}
+            Ready to Start Your Quest?
           </h2>
           <p className="text-white mt-4 text-center max-w-2xl">
             Join us and transform your coding journey into an epic adventure.
           </p>
-          <button className="mt-6 bg-white text-[#155DFC] px-6 py-3 rounded-full font-semibold hover:bg-[#E0E7FF] transition-colors duration-300">
+          <button onClick={() => navigate("/dashboard")} className="mt-6 bg-white text-[#155DFC] px-6 py-3 rounded-full font-semibold hover:bg-[#E0E7FF] transition-colors duration-300">
             Get Started
           </button>
         </div>

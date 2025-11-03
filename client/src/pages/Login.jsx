@@ -4,6 +4,7 @@ import useApi from "../hooks/useApi";
 import useAuth from "../hooks/useAuth";
 const Login = () => {
   const [user, setUser] = useState(null);
+  const [error, setError] = useState(null);
   const { apiBaseUrl } = useApi();
   const { login } = useAuth();
   const onSubmit = async (e) => {
@@ -21,12 +22,10 @@ const Login = () => {
         body: JSON.stringify(user),
     });
     const data = await result.json();
-    console.log(data);
     if (data.status === 200) {
         login(data);
-        alert("Login successful!");
     } else {
-        alert("Login failed: " + data.message);
+        setError("Login failed: " + data.message);
     }
   }
   return (
@@ -35,7 +34,7 @@ const Login = () => {
       <div className="flex-grow flex justify-center bg-[#F5F3FF]">
         <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md mt-10">
           <h1 className="text-2xl font-bold text-[#4F46E5]">Login</h1>
-          <form action="">
+          <form onSubmit={onSubmit}>
             <div className="mb-4">
               <label className="block text-gray-700 mb-2" htmlFor="username">
                 Username
@@ -61,12 +60,12 @@ const Login = () => {
               />
             </div>
             <button
-              onClick={onSubmit}
               className="w-full bg-[#4F46E5] text-white py-2 rounded-lg hover:bg-purple-700 transition-colors duration-300"
-              type="button"
+              type="submit"
             >
               Login
             </button>
+            {error && <p className="text-red-500 mt-4">{error}</p>}
           </form>
         </div>
       </div>
